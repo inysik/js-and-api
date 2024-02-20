@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Slider</title>
+    <style>
+        /* Стили для центрирования контейнера */
+        .container {
+            text-align: center;
+            margin: 10px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            background-color: rgb(220, 161, 153);
+        }
+
+        /* Стили для изображения */
+        img {
+
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        /* Стили для навигационных точек */
+        .dots {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .dot {
+            height: 15px;
+            width: 15px;
+            background-color: #ff9e9e;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 5px;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background-color: #d97d7d;
+        }
+
+        button {
+            background-color: transparent;
+            color: #e62fcd;
+            padding: 10px 20px;
+            border: 2px solid #96116e;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 5px;
+            font-size: 16px;
+            transition: color 0.3s ease, border-color 0.3s ease;
+        }
+
+        button:hover {
+            color: #4a092f;
+
+            border-color: #db86c1;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Контейнер для изображения -->
+        <div id="slider">
+            <img src="image1.jpg" alt="Image 1" width="500px">
+            <img src="image2.jpg" alt="Image 2" width="500px">
+            <img src="image3.jpg" alt="Image 3" width="500px">
+        </div>
+        <!-- Навигационные точки -->
+        <div class="dots">
+            <span class="dot" onclick="currentImage(1)"></span>
+            <span class="dot" onclick="currentImage(2)"></span>
+            <span class="dot" onclick="currentImage(3)"></span>
+        </div>
+        <!-- Кнопки для переключения изображений -->
+        <button onclick="prevImage()"> A beautiful cat</button>
+        <button onclick="nextImage()"> Another beautiful cat</button>
+    </div>
+
+    <script>
+        let slideIndex = 1;
+        showImage(slideIndex);
+
+        function nextImage() {
+            showImage(slideIndex += 1);
+        }
+
+        function prevImage() {
+            showImage(slideIndex -= 1);
+        }
+
+        function currentImage(n) {
+            showImage(slideIndex = n);
+        }
+
+        function showImage(n) {
+            let i;
+            const slides = document.querySelectorAll('#slider img');
+            const dots = document.querySelectorAll('.dot');
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = 'none';
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(' active', '');
+            }
+            slides[slideIndex - 1].style.display = 'block';
+            dots[slideIndex - 1].className += ' active';
+        }
+    </script>
+</body>
+
+</html>

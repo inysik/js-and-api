@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <img class="import_img">
+    <br>
+    <span class="name_author">
+
+    </span>
+    <br>
+    <button class="likes"> like</button>
+    <script>
+        const button = document.querySelector('button')
+        const clickButton = document.querySelector('button');
+        clickButton.addEventListener('click', showMessage,)
+        let counter = 0;
+        function showMessage() {
+            button.textContent = (` likes ${++counter}`)
+        }
+
+        const options = {
+            method: 'GET',
+
+            <!-- mode: 'cors' -->
+        };
+        fetch(`https://api.unsplash.com/photos/random/?client_id=UrXcw6aX64o-KQ0otLCgp7941AgMsWt78-vEPyFQwfE`, options)
+            .then((response) => {
+                console.log('response', response);
+                return response.json();
+            })
+            .then((data) => {
+                let impport_img = document.querySelector('.import_img')
+                let name_author = document.querySelector('.name_author')
+
+                impport_img.src = data.urls.small;
+                name_author.textContent = data.user.username;
+
+                console.log('data', data.urls, data.user.username);
+            })
+            .catch(() => { console.log('error') });
+
+    </script>
+
+</body>
+
+</html>
